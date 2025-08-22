@@ -462,11 +462,25 @@ export async function getTaskHandler(params) {
       includeSubtasks: params.subtasks
     });
 
+    // Extract only name and description from the task
+    // Note: ClickUp API returns markdown content in text_content field
+    const filteredTask = {
+      name: result.task.name,
+      description: result.task.description || null,
+      markdown_description: result.task.text_content || null
+    };
+
     if (result.subtasks) {
-      return { ...result.task, subtasks: result.subtasks };
+      // Also filter subtasks to only include name and description
+      const filteredSubtasks = result.subtasks.map(subtask => ({
+        name: subtask.name,
+        description: subtask.description || null,
+        markdown_description: subtask.text_content || null
+      }));
+      return { ...filteredTask, subtasks: filteredSubtasks };
     }
 
-    return result.task;
+    return filteredTask;
   } catch (error) {
     throw error;
   }

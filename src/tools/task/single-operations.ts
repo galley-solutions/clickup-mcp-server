@@ -318,7 +318,7 @@ export const duplicateTaskTool = {
  */
 export const getTaskTool = {
   name: "get_task",
-  description: `Gets task details by taskId (automatically handles both regular and custom IDs) or taskName. For taskName search, provide listName for faster lookup. Set subtasks=true to include all subtask details.`,
+  description: `Gets task name and descriptions by taskId (automatically handles both regular and custom IDs) or taskName. For taskName search, provide listName for faster lookup. Set subtasks=true to include subtask names and descriptions. Returns only name, description, and markdown_description fields.`,
   inputSchema: {
     type: "object",
     properties: {
